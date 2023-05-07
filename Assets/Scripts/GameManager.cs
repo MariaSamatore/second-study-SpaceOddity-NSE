@@ -122,7 +122,8 @@ public class GameManager : MonoBehaviour
         if (healthText) 
         {
             if (health < 0) health = 0;
-            healthText.text = health + "%";
+            float percentage = health / maxHealth * 100;
+            healthText.text = Mathf.FloorToInt(percentage) + "%";
 
             //Health bar
             lerpSpeed = 3f * Time.deltaTime;
