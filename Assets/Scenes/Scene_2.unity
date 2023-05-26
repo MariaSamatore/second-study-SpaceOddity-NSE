@@ -979,7 +979,6 @@ MonoBehaviour:
   healthText: {fileID: 43382459}
   maxHealth: 130
   healthBar: {fileID: 942304064}
-  lerpSpeed: 3
   gameOver: 0
   restart: 0
   gameOverText: {fileID: 300723557}

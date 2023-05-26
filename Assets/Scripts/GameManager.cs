@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     
     //Health Bar
     public Image healthBar;
-    public float lerpSpeed;
 
     //game over and restart
     [HideInInspector] public bool gameOver;
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.Full);
         username = PlayerPrefs.GetString("playerNamePref"); 
-        //curTime = 0;
+
         gameOver = false;
         restart = false;
         if (gameOverText && restartText)
@@ -76,8 +75,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //curTime += Time.deltaTime;
-
         if (gameOver)
         {
             // If a participant loses 6 times, they'll be kicked out of the game and redirected to the surveys
@@ -122,14 +119,22 @@ public class GameManager : MonoBehaviour
         if (healthText) 
         {
             if (health < 0) health = 0;
+
             float percentage = health / maxHealth * 100;
             healthText.text = Mathf.FloorToInt(percentage) + "%";
 
             //Health bar
-            lerpSpeed = 3f * Time.deltaTime;
             healthBar.fillAmount = health / maxHealth;
-            Color healthColor = Color.Lerp(Color.red, Color.green, health / maxHealth);
-            healthBar.color = healthColor;
+
+            if (health < (maxHealth * 30 / 100)) healthBar.color = Color.red;
+
+            else if (health >= (maxHealth * 30 / 100) && health < (maxHealth * 50 / 100)) healthBar.color = new Color(1, 0.55f, 0, 1);
+
+            else if (health >= (maxHealth * 50 / 100) && health < (maxHealth * 70 / 100)) healthBar.color = Color.yellow;
+
+            else if (health >= (maxHealth * 70 / 100) && health < (maxHealth * 90 / 100)) healthBar.color = new Color(0.84f, 0.85f, 0.11f, 1);
+
+            else if (health >= (maxHealth * 90 / 100)) healthBar.color = new Color(0, 0.8f, 0, 1);
         } 
     }
 
